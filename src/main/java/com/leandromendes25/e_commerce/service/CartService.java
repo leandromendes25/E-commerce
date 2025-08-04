@@ -22,9 +22,18 @@ public class CartService {
     public CartResponseDTO newCart(CartRequestDTO data){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Cart cart = cartMapper.toCart(data);
-        cart.setUserEntity(user);
+        cart.setUserentity(user);
         cartRepo.save(cart);
         return cartMapper.toCartResponseDTO(cart);
     }
+    public CartResponseDTO findCartUser(){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Long idUser = user.getId();
+        Cart cart = cartRepo.findByuserentity(idUser);
 
+        return cartMapper.toCartResponseDTO(cart);
+    }
+//    public CartResponseDTO updateCart(){
+//
+//    }
 }
