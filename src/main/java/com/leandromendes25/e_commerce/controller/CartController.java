@@ -16,13 +16,13 @@ public class CartController {
     private CartService cartService;
 
     @PostMapping
-    public ResponseEntity<CartResponseDTO> newCart(@Valid @RequestBody CartRequestDTO data){
+    public ResponseEntity<CartResponseDTO> newCart(@RequestBody CartRequestDTO data){
         return ResponseEntity.ok().body(cartService.newCart(data));
     }
-    @GetMapping
-    public ResponseEntity<CartResponseDTO> read(){
-    return ResponseEntity.ok().body(cartService.findCartUser());
-    }
+//    @GetMapping
+//    public ResponseEntity<CartResponseDTO> read(){
+//    return ResponseEntity.ok().body(cartService.findCartUser());
+//    }
 //    @PutMapping
 //    public ResponseEntity<CartResponseDTO> updateCart(){
 //        return ResponseEntity.ok().body(cartService.update());

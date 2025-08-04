@@ -31,6 +31,7 @@ public class SecurityConfigurations {
                                 .hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/products").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/carts").hasRole("USER")
                                 .anyRequest().authenticated()).addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

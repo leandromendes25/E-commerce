@@ -26,14 +26,4 @@ public class CartService {
         cartRepo.save(cart);
         return cartMapper.toCartResponseDTO(cart);
     }
-    public CartResponseDTO findCartUser(){
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Long idUser = user.getId();
-        Cart cart = cartRepo.findByuserentity(idUser);
-
-        return cartMapper.toCartResponseDTO(cart);
-    }
-//    public CartResponseDTO updateCart(){
-//
-//    }
 }

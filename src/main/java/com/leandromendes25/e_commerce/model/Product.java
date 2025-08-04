@@ -22,7 +22,7 @@ public class Product {
     private BigDecimal price;
     private List<String> image;
     private int stockQty;
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category_id;
 }
