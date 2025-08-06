@@ -20,9 +20,9 @@ public class Product {
     private Long id;
     private String name;
     private BigDecimal price;
-    private List<String> image;
+    private String image;
     private int stockQty;
     @ManyToOne
     @JoinColumn(name = "category_id")
-    private Category category_id;
+    private Category category;
 }

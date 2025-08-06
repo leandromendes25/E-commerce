@@ -25,12 +25,13 @@ public class SecurityFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         var token = this.recoverToken(request);
-
-        if (token != null) {
+        if (token != null && !token.isBlank()) {
             var subject = this.service.validateToken(token);
+            if(subject != null && !subject.isBlank()){
             UserDetails user = userRepo.findByEmail(subject).orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
             var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
         }
         filterChain.doFilter(request, response);
     }
@@ -40,5 +41,4 @@ public class SecurityFilter extends OncePerRequestFilter {
         if (authHeader == null) return null;
         return authHeader.replace("Bearer ", "").trim();
     }
-
 }

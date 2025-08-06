@@ -6,21 +6,26 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.leandromendes25.e_commerce.model.User;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.List;
 
 @Service
 public class TokenService {
     @Value("${api.security.token}")
     private String secret;
 
+
     public String generateToken(User user) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
+            List<String> roles = user.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
             return JWT.create().withIssuer("e-commerce").withSubject(user.getEmail())
+                    .withClaim("roles", roles)
                     .withExpiresAt(genExpirationDate()).sign(algorithm);
         } catch (JWTCreationException exception) {
             throw new RuntimeException("Erro durante a criação do token", exception);

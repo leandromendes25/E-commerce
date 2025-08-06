@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/users")
 public class UserController {
 
-//    public ResponseEntity<UserResponseDTO> register(@Valid @RequestBody UserRequestDTO dto){
-//
-//    }
+
 
 }
