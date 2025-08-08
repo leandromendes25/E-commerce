@@ -23,7 +23,7 @@ public class Cart {
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CartItem> items;
     private BigDecimal totalPrice;
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User userentity;
 
     public BigDecimal getTotalPrice(BigDecimal subTotal) {

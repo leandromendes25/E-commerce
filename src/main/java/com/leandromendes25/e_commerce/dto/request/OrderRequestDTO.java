@@ -6,5 +6,5 @@ import com.leandromendes25.e_commerce.model.enums.OrderStatus;
 
 import java.util.List;
 
-public record OrderRequestDTO(User user, List<OrderItem> items, OrderStatus status, String paymentId) {
+public record OrderRequestDTO(Long idUser, List<OrderItemRequestDTO> items, OrderStatus status, String paymentId) {
 }

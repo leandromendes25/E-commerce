@@ -23,5 +23,6 @@ public class Order {
     private List<OrderItem> items;
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
+    @Column(unique = true)
     private String pagamentoId;
 }

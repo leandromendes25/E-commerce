@@ -31,7 +31,6 @@ public class CartService {
     public CartResponseDTO newCart(CartRequestDTO data) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Cart cart = cartMapper.toCart(data);
-        cart.setUserentity(user);
         List<CartItem> items = data.items().stream().map(itemDto -> {
             Product product = productRepository.findById(itemDto.productId()).orElseThrow(ProductNotFoundException::new);
             CartItem cartItem = new CartItem();
@@ -40,11 +39,13 @@ public class CartService {
             cartItem.setCart(cart);
             return cartItem;
         }).toList();
+
         BigDecimal total = items.stream().map(item -> item.getProduct().getPrice().multiply(BigDecimal.valueOf(item.getQuantity()))).reduce(BigDecimal.ZERO, BigDecimal::add);
         cart.setTotalPrice(total);
+        cart.setUserentity(user);
         cart.setItems(items);
-
-        cartRepo.save(cart);
+        var cat = cartRepo.save(cart);
+        System.out.println(cart.getUserentity().getEmail());
         return cartMapper.toCartResponseDTO(cart);
     }
 }

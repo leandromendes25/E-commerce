@@ -24,6 +24,6 @@ public class UserService {
         String encryptedPassowrd = encoder.encode(data.password());
         var newUser = User.builder().email(data.email()).password(encryptedPassowrd).role(data.role()).build();
         userRepo.save(newUser);
-        return new UserResponseDTO(newUser.getEmail(),newUser.getPassword(),newUser.getRole());
+        return new UserResponseDTO(newUser.getId() , newUser.getEmail());
     }
 }
